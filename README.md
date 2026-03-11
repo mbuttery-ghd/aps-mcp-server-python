@@ -28,12 +28,12 @@ mcp_server_3lo/    # Example MCP server with 3-legged authentication
 
 - **Python 3.13+** and **[uv](https://docs.astral.sh/uv/getting-started/installation/)**
 - For `mcp_server_2lo`:
-  - An **APS application** of type _Traditional Web App_
+  - An **APS application** (_Traditional Web App_ or _Server-to-Server_)
 - For `mcp_server_ssa`:
-  - An **APS application** of type _Server-to-Server_
+  - An **APS application** (_Server-to-Server_)
   - A **Secure Service Account** set up and linked to your application (see [SSA docs](https://aps.autodesk.com/en/docs/ssa/v1/developers_guide/overview/))
 - For `mcp_server_3lo`:
-  - An **APS application** of type _Traditional Web App_
+  - An **APS application** (_Traditional Web App_)
   - Redirect URI `http://localhost:5002/callback` added to your application's **Callback URL** list
 
 ---
@@ -86,7 +86,7 @@ The server calls the APS token endpoint with `grant_type=client_credentials` usi
 sequenceDiagram
     participant Client as MCP Client
     participant Server as MCP Server
-    participant APS as APS (Autodesk)
+    participant APS as APS
 
     Client->>Server: Call tool (e.g. list_buckets)
     Server->>APS: POST /authentication/v2/token (client_credentials)
@@ -228,10 +228,3 @@ uv run fastmcp run mcp_server_2lo/server.py --transport streamable-http --port 5
 # In another terminal, open the inspector:
 npx @modelcontextprotocol/inspector http://localhost:5000/mcp
 ```
-
-For the 3LO server, the typical test sequence in MCP Inspector is:
-
-1. Call `authenticate` — copy the URL from the response
-2. Paste the URL into a browser, sign in, and click "Allow"
-3. Once the browser shows "Authentication successful", return to MCP Inspector
-4. Call `list_hubs`, then `list_projects` with one of the returned hub IDs
