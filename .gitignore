@@ -88,5 +88,6 @@ Desktop.ini
 
 # Other
 *.log
+*.pem
 
 .env
